@@ -57,7 +57,12 @@ Unity Size Explorer is a WPF program written for Windows. It requires .NET 4.5.2
 
 How to Run
 ---
-Coming soon
+  1. Double-click UnitySizeExplorer.exe
+  1. Go to File > Open
+  1. Navigate to Unity Editor's log file. (Typically under $HOME\AppData\Local\Unity\Editor)
+  1. Check or uncheck items in the tree view to add/remove them from the pie chart and estimated file size. Expand folders to work with their children directly.
+  1. It helps if you first filter out very small files as they clutter the UI and can make the tool sluggish. Go to Filter > Small. These items will still be counted in the final size, but will be hidden from the tree view and pie chart.
+  1. **Note that you must clear the contents of the log file before building in Unity to ensure that there is only one size entry.**
 
 [1]: http://tumblestonegame.com
 [2]: https://github.com/aschearer/unitysizeexplorer/releases/latest
