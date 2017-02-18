@@ -41,7 +41,7 @@ As this projected is maintained by one person, I cannot fix every bug or impleme
 
 A good way to get started:
 
-1. Fork the Image Power Tools repo. 
+1. Fork the Unity Size Explorer repo. 
 1. Create a new branch in you current repo from the 'master' branch.
 1. 'Check out' the code with Git or [GitHub Desktop](https://desktop.github.com/)
 1. Push commits and create a Pull Request (PR)
