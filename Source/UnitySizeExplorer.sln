@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitySizeExplorer.WPF", "UnitySizeExplorer.WPF/UnitySizeExplorer.WPF.csproj", "{D02CEFD9-0C73-4BA3-8A9D-9C103CE1873F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitySizeExplorer.WPF", "UnitySizeExplorer.WPF\UnitySizeExplorer.WPF.csproj", "{D02CEFD9-0C73-4BA3-8A9D-9C103CE1873F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1D5EFC68-6425-481B-90BB-F62F4FA1020B}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitattributes = ..\.gitattributes
+		..\.gitignore = ..\.gitignore
+		..\License.txt = ..\License.txt
+		..\ReadMe.md = ..\ReadMe.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
