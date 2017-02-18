@@ -1,5 +1,8 @@
 Unity Size Explorer
 ===
+
+![Unity Size Explorer example](https://github.com/aschearer/unitysizeexplorer/blob/master/Examples/Screenshot1.PNG)
+
 While developing [Tumblestone][1] for mobile devices I needed to greatly reduce the amount of disk space the game required. For iOS in particular games must be at or below 100 mb. Players must be on wifi in order to download games above 100 mb -- initially, Tumblestone was over 1 gb! I developed this tool to help reduce Tumblestone from 1 gb to 100 mb.
 
 Normally, you can view Unity Editor's log after building to see some stats on a game's file size. This is what it looks like:
