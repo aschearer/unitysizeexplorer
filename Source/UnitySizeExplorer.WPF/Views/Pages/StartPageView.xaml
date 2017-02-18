@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="SpottedZebra.UnitySizeExplorer.WPF.Views.Pages.StartPageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SpottedZebra.UnitySizeExplorer.WPF.Views.Pages"
+      mc:Ignorable="d"
+             Focusable="True">
+
+    <UserControl.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Open" Executed="OnOpen" />
+        <CommandBinding Command="ApplicationCommands.Close" Executed="OnClose" />
+    </UserControl.CommandBindings>
+
+    <DockPanel x:Name="Workstation">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Open" Command="ApplicationCommands.Open" />
+                <MenuItem Header="_Exit" Command="ApplicationCommands.Close"/>
+            </MenuItem>
+        </Menu>
+        <Grid
+            DockPanel.Dock="Bottom" 
+            AllowDrop="True" 
+            Drop="OnFileDropped"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Background="Transparent">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock TextAlignment="Center">Drag &amp; drop Unity's Editor.log to get started</TextBlock>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</UserControl>

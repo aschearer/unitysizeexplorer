@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="SpottedZebra.UnitySizeExplorer.WPF.Views.Pages.WorkspacePageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SpottedZebra.UnitySizeExplorer.WPF.Views.Pages"
+      xmlns:view="clr-namespace:SpottedZebra.UnitySizeExplorer.WPF.Views"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" 
+      d:DesignWidth="300">
+
+    <!-- Commands -->
+    <UserControl.CommandBindings>
+        <CommandBinding Command="local:WorkspacePageView.Filter1Action" Executed="OnFilter1" />
+        <CommandBinding Command="local:WorkspacePageView.Filter2Action" Executed="OnFilter2" />
+        <CommandBinding Command="local:WorkspacePageView.Filter3Action" Executed="OnFilter3" />
+        <CommandBinding Command="local:WorkspacePageView.ClearFilterAction" Executed="OnClearFilter" />
+        <CommandBinding Command="local:WorkspacePageView.ToggleSelectedAction" Executed="OnToggleSelected" />
+    </UserControl.CommandBindings>
+    <!-- Static Resources -->
+    <UserControl.Resources>
+        <HierarchicalDataTemplate 
+             x:Key="CheckBoxItemTemplate"
+             ItemsSource="{Binding Children, Mode=OneTime}">
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <CheckBox 
+                    Grid.Column="0"
+                    Focusable="False"
+                    IsChecked="{Binding IsChecked}"
+                    VerticalAlignment="Center" />
+                <ContentPresenter
+                    Grid.Column="1"
+                    Content="{Binding NameAndSize, Mode=OneWay}"
+                    Margin="2,0" />
+            </Grid>
+        </HierarchicalDataTemplate>
+        <Style x:Key="TreeViewItemStyle" TargetType="TreeViewItem">
+            <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+            <Setter Property="Visibility" Value="{Binding Visibility, Mode=OneWay}" />
+            <Setter Property="IsEnabled" Value="{Binding IsEnabled, Mode=OneWay}" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="view:TreeViewItemKeyboardShortcut.InputBindings">
+                <Setter.Value>
+                    <InputBindingCollection>
+                        <KeyBinding Key="Space" Command="local:WorkspacePageView.ToggleSelectedAction" />
+                        <KeyBinding Key="Return" Command="local:WorkspacePageView.ToggleSelectedAction" />
+                    </InputBindingCollection>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <!-- Main UI -->
+    <DockPanel x:Name="Workstation">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Open"/>
+                <MenuItem Header="_Save"/>
+                <MenuItem Header="_Exit"/>
+            </MenuItem>
+            <MenuItem Header="F_ilter">
+                <MenuItem Header="_Big: Less than 1 mb" Command="local:WorkspacePageView.Filter1Action"/>
+                <MenuItem Header="_Medium: Less than 0.5 mb" Command="local:WorkspacePageView.Filter2Action"/>
+                <MenuItem Header="_Small: Less than 0.1 mb" Command="local:WorkspacePageView.Filter3Action"/>
+                <MenuItem Header="_Clear Filter" Command="local:WorkspacePageView.ClearFilterAction"/>
+            </MenuItem>
+        </Menu>
+        <TreeView x:Name="TreeView"
+                  DockPanel.Dock="Left"
+                  ItemContainerStyle="{StaticResource TreeViewItemStyle}"
+                  ItemsSource="{Binding Roots, Mode=OneTime}"
+                  ItemTemplate="{StaticResource CheckBoxItemTemplate}">
+        </TreeView>
+        <Grid DockPanel.Dock="Right" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,20">
+                <TextBlock Text="{Binding OriginalSizeText}" />
+                <TextBlock Margin="20,0,0,0" Text="{Binding CurrentSizeText}" />
+                <TextBlock Margin="20,0,0,0" Text="{Binding SavingsSizeText}" />
+            </StackPanel>
+            <lvc:PieChart 
+                LegendLocation="Bottom" 
+                Grid.Row="1"
+                x:Name="PieChart">
+            </lvc:PieChart>
+        </Grid>
+    </DockPanel>
+</UserControl>
