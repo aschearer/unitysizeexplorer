@@ -34,6 +34,11 @@ Further aggravating things is the fact that Unity only generates the above after
 
 That's where this tool comes in. It reads the log file and generates a tree view and pie chart. The tree view lists every file grouped by folder -- just like in the file system. You can expand or collapse folders to view sub-folders and files. You can check on or off a given file or folder, excluding the corresponding size from the projected game file size. Plus there's a nice pie chart visually showing how much space everything uses relative to the rest of the project.
 
+Quick Start
+---
+Just want to run the thing using a pre-compiled binary?
+**[Download Unity Size Explorer](https://github.com/aschearer/unitysizeexplorer/releases/latest)**
+
 Questions, Bug Reports or Feature Requests?
 ---
 Do you have feature requests, questions or would you like to report a bug? Please post them on the [issue list][4].
