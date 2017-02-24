@@ -61,6 +61,23 @@ namespace Tests {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Used Assets and files from the Resources folder, sorted by uncompressed size:
+        /// 2.1 mb  3.4% file1
+        /// 2.1 mb  3.4% file2
+        ///Used Assets and files from the Resources folder, sorted by uncompressed size:
+        /// 2.1 mb  3.4% file3
+        /// 2.1 mb  3.4% file4
+        ///Used Assets and files from the Resources folder, sorted by uncompressed size:
+        /// 2.1 mb  3.4% file5
+        /// 2.1 mb  3.4% file6.
+        /// </summary>
+        internal static string LogWithMultipleBlocksOfFiles {
+            get {
+                return ResourceManager.GetString("LogWithMultipleBlocksOfFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Textures      33.1 mb    54.1% 
         ///Meshes        0.0 kb     0.0% 
         ///Animations    0.0 kb     0.0% 
@@ -85,8 +102,8 @@ namespace Tests {
         
         /// <summary>
         ///   Looks up a localized string similar to Used Assets and files from the Resources folder, sorted by uncompressed size:
-        /// 2.1 mb  3.4% Assets/Spritesheets/v2/Spritesheet1.png
-        /// 2.1 mb  3.4% Assets/Spritesheets/v2/Spritesheet2.png.
+        /// 2.1 mb  3.4% file1
+        /// 2.1 mb  3.4% file2.
         /// </summary>
         internal static string LogWithSingleBlockOfFiles {
             get {

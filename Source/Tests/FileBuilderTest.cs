@@ -1,19 +1,17 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace Tests
+﻿namespace Tests
 {
     using System.IO;
     using System.Linq;
+    using System.Text;
 
     using FluentAssertions;
+
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     using SpottedZebra.UnitySizeExplorer.WPF.ViewModels.Pages;
 
     /// <summary>
-    /// Summary description for FileBuilderTest
+    ///     Summary description for FileBuilderTest
     /// </summary>
     [TestClass]
     public class FileBuilderTest
@@ -46,9 +44,26 @@ namespace Tests
             var first = result.First();
 
             result.Should().HaveCount(2);
-            first.Item1.Should().Be("Assets/Spritesheets/v2/Spritesheet1.png");
+            first.Item1.Should().Be("file1");
+            first.Item2.Should().Be(21f);
+        }
+
+        [TestMethod]
+        public void LogWithMultipleBlocksShouldReturnGivenInformation()
+        {
+            // arrange
+            var buffer = Encoding.UTF8.GetBytes(TestResources.LogWithMultipleBlocksOfFiles);
+            var stream = new MemoryStream(buffer);
+
+            // act
+            var result = FileBuilder.FromStream(stream);
+
+            // assert
+            var first = result.First();
+
+            result.Should().HaveCount(6);
+            first.Item1.Should().Be("file1");
             first.Item2.Should().Be(21f);
         }
     }
-    
 }

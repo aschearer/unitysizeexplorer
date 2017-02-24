@@ -138,7 +138,18 @@ Complete size 61.3 mb    100.0%
   </data>
   <data name="LogWithSingleBlockOfFiles" xml:space="preserve">
     <value>Used Assets and files from the Resources folder, sorted by uncompressed size:
- 2.1 mb  3.4% Assets/Spritesheets/v2/Spritesheet1.png
- 2.1 mb  3.4% Assets/Spritesheets/v2/Spritesheet2.png</value>
+ 2.1 mb  3.4% file1
+ 2.1 mb  3.4% file2</value>
+  </data>
+  <data name="LogWithMultipleBlocksOfFiles" xml:space="preserve">
+    <value>Used Assets and files from the Resources folder, sorted by uncompressed size:
+ 2.1 mb  3.4% file1
+ 2.1 mb  3.4% file2
+Used Assets and files from the Resources folder, sorted by uncompressed size:
+ 2.1 mb  3.4% file3
+ 2.1 mb  3.4% file4
+Used Assets and files from the Resources folder, sorted by uncompressed size:
+ 2.1 mb  3.4% file5
+ 2.1 mb  3.4% file6</value>
   </data>
 </root>
