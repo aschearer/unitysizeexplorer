@@ -197,7 +197,7 @@
         {
             using (var stream = new FileStream(this.fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
-                var files = await FileBuilder.BuildFilesFromStream(stream);
+                var files = FileBuilder.FromStream(stream);
 
                 var roots = BuildTreeFromFiles(files);
 

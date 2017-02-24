@@ -5,9 +5,9 @@ namespace SpottedZebra.UnitySizeExplorer.WPF.ViewModels.Pages
     using System.IO;
     using System.Threading.Tasks;
 
-    internal static class FileBuilder
+    public static class FileBuilder
     {
-        public static async Task<List<Tuple<string, float>>> BuildFilesFromStream(Stream stream)
+        public static List<Tuple<string, float>> FromStream(Stream stream)
         {
             List<Tuple<string, float>> files;
             using (var reader = new StreamReader(stream))
@@ -18,7 +18,7 @@ namespace SpottedZebra.UnitySizeExplorer.WPF.ViewModels.Pages
                 string line;
                 while (!reader.EndOfStream)
                 {
-                    line = await reader.ReadLineAsync();
+                    line = reader.ReadLine();
 
                     if (line.Trim() == Resource.LogStartWord)
                     {
