@@ -4,6 +4,14 @@ Unity Size Explorer
 
 ![Unity Size Explorer example](https://github.com/aschearer/unitysizeexplorer/blob/master/Examples/Screenshot1.PNG)
 
+Quick Start
+---
+Just want to run the tool using a pre-compiled binary?
+
+[Download Unity Size Explorer](https://github.com/aschearer/unitysizeexplorer/releases/latest)
+
+Background
+---
 While developing [Tumblestone][1] for mobile devices I needed to greatly reduce the amount of disk space the game required. For iOS in particular games must be at or below 100 mb. Players must be on wifi in order to download games above 100 mb -- initially, Tumblestone was over 1 gb! I developed this tool to help reduce Tumblestone from 1 gb to 100 mb.
 
 Normally, you can view Unity Editor's log after building to see some stats on a game's file size. This is what it looks like:
@@ -34,11 +42,6 @@ Howvever in the quest to fit under 100 mb I reached a point where the list of fi
 Further aggravating things is the fact that Unity only generates the above after building. In my case building for iOS often took 5 to 10 minutes. This meant that my workflow was drawn out as I made a change, built, then compared the old and new log files. Sometimes the results worked as expected and I could continue. Other times the changes had a smaller impact and were discarded. I needed a way to more quickly and accurately gauge what impact an optimization would have without having to spend 10 minutes per an iteration.
 
 That's where this tool comes in. It reads the log file and generates a tree view and pie chart. The tree view lists every file grouped by folder -- just like in the file system. You can expand or collapse folders to view sub-folders and files. You can check on or off a given file or folder, excluding the corresponding size from the projected game file size. Plus there's a nice pie chart visually showing how much space everything uses relative to the rest of the project.
-
-Quick Start
----
-Just want to run the thing using a pre-compiled binary?
-**[Download Unity Size Explorer](https://github.com/aschearer/unitysizeexplorer/releases/latest)**
 
 Questions, Bug Reports or Feature Requests?
 ---
