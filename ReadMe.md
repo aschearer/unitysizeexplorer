@@ -1,5 +1,6 @@
 Unity Size Explorer
 ===
+[![Build status](https://ci.appveyor.com/api/projects/status/6hp8elqmalmko9b7?svg=true)](https://ci.appveyor.com/project/aschearer/unitysizeexplorer)
 
 ![Unity Size Explorer example](https://github.com/aschearer/unitysizeexplorer/blob/master/Examples/Screenshot1.PNG)
 
