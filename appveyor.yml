@@ -1,0 +1,25 @@
+version: 0.1.{build}
+branches:
+  only:
+    - master
+  except:
+    - gh-pages
+configuration:
+- Release
+platform: Any CPU
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
+before_build:
+- ps: nuget restore Source\UnitySizeExplorer.sln
+build:
+  verbosity: minimal
+  project: Source\UnitySizeExplorer.sln
+after_build:
+- cmd: 7z a UnitySizeExplorer.zip "%APPVEYOR_BUILD_FOLDER%\Source\UnitySizeExplorer.WPF\bin\Release\*.dll" "%APPVEYOR_BUILD_FOLDER%\Source\UnitySizeExplorer.WPF\bin\Release\*.exe" "%APPVEYOR_BUILD_FOLDER%\Source\UnitySizeExplorer.WPF\bin\Release\*.txt" "%APPVEYOR_BUILD_FOLDER%\Source\UnitySizeExplorer.WPF\bin\Release\*.md"
+artifacts:
+- path: UnitySizeExplorer.zip
+  name: UnitySizeExplorer.zip
