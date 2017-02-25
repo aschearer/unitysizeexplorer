@@ -3,6 +3,7 @@
     using LiveCharts;
     using LiveCharts.Configurations;
     using LiveCharts.Wpf;
+    using Microsoft.Win32;
     using SpottedZebra.UnitySizeExplorer.WPF.ViewModels;
     using System.Collections.Specialized;
     using System.Windows;
@@ -31,9 +32,21 @@
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
+            this.Focus();
             this.PieChart.Series = new SeriesCollection();
             var viewModel = this.DataContext as WorkspacePageViewModel;
             viewModel.Roots.CollectionChanged += this.OnCollectionChanged;
+            bool shouldAddFocus = true;
+            foreach (var root in viewModel.Roots)
+            {
+                this.AddFileToChart(root);
+                if (shouldAddFocus)
+                {
+                    root.IsSelected = true;
+                    this.TreeView.Focus();
+                    shouldAddFocus = false;
+                }
+            }
         }
 
         private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -44,7 +57,7 @@
                 case NotifyCollectionChangedAction.Reset:
                     for (int i = 0; i < workspace.Roots.Count; i++)
                     {
-                        var viewModel = (FileItemViewModel)workspace.Roots[i];
+                        var viewModel = workspace.Roots[i];
                         this.AddFileToChart(viewModel);
                         if (i == 0)
                         {
@@ -104,6 +117,11 @@
         {
             var selected = this.TreeView.SelectedItem as FileItemViewModel;
             selected.IsChecked = !selected.IsChecked;
+        }
+
+        private void OnClose(object sender, ExecutedRoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

@@ -17,6 +17,7 @@
         <CommandBinding Command="local:WorkspacePageView.Filter3Action" Executed="OnFilter3" />
         <CommandBinding Command="local:WorkspacePageView.ClearFilterAction" Executed="OnClearFilter" />
         <CommandBinding Command="local:WorkspacePageView.ToggleSelectedAction" Executed="OnToggleSelected" />
+        <CommandBinding Command="ApplicationCommands.Close" Executed="OnClose" />
     </UserControl.CommandBindings>
     <!-- Static Resources -->
     <UserControl.Resources>
@@ -61,9 +62,7 @@
     <DockPanel x:Name="Workstation">
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
-                <MenuItem Header="_Open"/>
-                <MenuItem Header="_Save"/>
-                <MenuItem Header="_Exit"/>
+                <MenuItem Header="_Exit" Command="ApplicationCommands.Close"/>
             </MenuItem>
             <MenuItem Header="F_ilter">
                 <MenuItem Header="_Big: Less than 1 mb" Command="local:WorkspacePageView.Filter1Action"/>

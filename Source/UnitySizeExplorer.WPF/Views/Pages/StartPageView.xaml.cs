@@ -20,7 +20,7 @@
         public StartPageView()
         {
             this.InitializeComponent();
-            this.Loaded += this.OnLOaded;
+            this.Loaded += this.OnLoaded;
         }
 
         private static string GetDefaultUnityLogPath()
@@ -30,7 +30,7 @@
             return defaultPath;
         }
 
-        private void OnLOaded(object sender, RoutedEventArgs e)
+        private void OnLoaded(object sender, RoutedEventArgs e)
         {
             this.Focus();
         }
