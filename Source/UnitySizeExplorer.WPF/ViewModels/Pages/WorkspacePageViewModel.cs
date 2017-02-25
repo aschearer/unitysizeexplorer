@@ -37,12 +37,13 @@
         {
             this.conductor = conductor;
             this.fileName = fileName;
+            this.Roots = new BindableCollection<FileItemViewModel>();
         }
 
         /// <summary>
         ///     List of root nodes for a tree view.
         /// </summary>
-        public IObservableCollection<FileItemViewModel> Roots { get; private set; }
+        public IObservableCollection<FileItemViewModel> Roots { get; }
 
         /// <summary>
         ///     Label showing the app's original size. This never changes.
@@ -121,7 +122,7 @@
         protected override async void OnActivate()
         {
             base.OnActivate();
-            this.Roots = await this.LoadFile();
+            await this.LoadFile();
             this.UpdateSizeText(true);
             foreach (var root in this.Roots)
             {
@@ -193,20 +194,18 @@
         ///     Open the log file and process it into a set of FileItemViewModels suitable for use
         ///     in a tree view.
         /// </summary>
-        private async Task<BindableCollection<FileItemViewModel>> LoadFile()
+        private async Task LoadFile()
         {
             using (var stream = new FileStream(this.fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
-                var files = FileBuilder.FromStream(stream);
+                var files = await FileBuilder.FromStream(stream);
 
                 var roots = BuildTreeFromFiles(files);
 
                 PrepareRoots(roots);
 
                 // Step 5: Add the root nodes to the observable list for the view to process
-                var output = new BindableCollection<FileItemViewModel>();
-                output.AddRange(roots);
-                return output;
+                this.Roots.AddRange(roots);
             }
         }
 

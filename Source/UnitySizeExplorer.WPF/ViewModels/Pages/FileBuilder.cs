@@ -7,7 +7,7 @@ namespace SpottedZebra.UnitySizeExplorer.WPF.ViewModels.Pages
 
     public static class FileBuilder
     {
-        public static List<Tuple<string, float>> FromStream(Stream stream)
+        public static async Task<List<Tuple<string, float>>> FromStream(Stream stream)
         {
             List<Tuple<string, float>> files;
             using (var reader = new StreamReader(stream))
@@ -18,7 +18,7 @@ namespace SpottedZebra.UnitySizeExplorer.WPF.ViewModels.Pages
                 string line;
                 while (!reader.EndOfStream)
                 {
-                    line = reader.ReadLine();
+                    line = await reader.ReadLineAsync();
 
                     if (line.Trim() == Resource.LogStartWord)
                     {
@@ -56,7 +56,7 @@ namespace SpottedZebra.UnitySizeExplorer.WPF.ViewModels.Pages
         /// <remarks>
         ///     Data comes in like: " {size} {unit} {percent}% {path}/{file}"
         /// </remarks>
-        private static bool GetPathAndMegabytesFrom(string line, out Tuple<string, float> data)
+        public static bool GetPathAndMegabytesFrom(string line, out Tuple<string, float> data)
         {
             try
             {
