@@ -253,11 +253,6 @@
 
         private void FilterInternal(FileItemViewModel root, float minSize)
         {
-            foreach (var child in root.Children)
-            {
-                this.FilterInternal(child, minSize);
-            }
-
             if (minSize < 0)
             {
                 root.Visibility = Visibility.Visible;
@@ -269,6 +264,11 @@
             else
             {
                 root.Visibility = Visibility.Visible;
+            }
+
+            foreach (var child in root.Children)
+            {
+                this.FilterInternal(child, minSize);
             }
         }
     }

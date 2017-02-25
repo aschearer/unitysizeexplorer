@@ -7,6 +7,35 @@
     using System.Windows;
     using LiveCharts;
 
+    /// <summary>
+    /// Represents an item in the tree view as well as a slice in the pie chart.
+    /// </summary>
+    /// <remarks>
+    /// Items are visible in the tree view whenever their Visibility != Collapsed.
+    /// Items are visible in the pie chart whenever:
+    ///   1. They are visible
+    ///   2. They are checked
+    ///   3. They are not expanded
+    ///   4. All of their ancestors are:
+    ///     i. Visible
+    ///     ii. Checked
+    ///     iii. Expanded
+    /// 
+    /// Whenever a node changes:
+    ///   * Visibility
+    ///   * IsChecked
+    ///   * IsExpanded
+    ///  Then that node and all its descendents must recalculate ChartVisibility.
+    ///  
+    /// An Item's size is the sum of its size and the size of all its descendents.
+    /// 
+    /// Whenever a node changes:
+    ///   * Visibility
+    ///   * IsChecked
+    ///   * IsExpanded
+    /// 
+    /// Then that node and all its ancestors must recalculate NameAndSize and Megabytes.
+    /// </remarks>
     internal class FileItemViewModel : PropertyChangedBase, 
                                        IEquatable<FileItemViewModel>,
                                        IObservableChartPoint
@@ -78,45 +107,8 @@
                 {
                     this.isChecked = value;
                     this.NotifyOfPropertyChange(FileItemViewModel.IsCheckedPropertyName);
-                    this.NotifyOfPropertyChange(FileItemViewModel.MegabytesPropertyName);
-                    this.NotifyOfPropertyChange(FileItemViewModel.NameAndSizePropertyName);
-                    this.PointChanged?.Invoke();
-
-                    if (!this.IsExpanded && this.Visibility == Visibility.Visible)
-                    {
-                        this.ChartVisibility = value ? Visibility.Visible : Visibility.Collapsed;
-                    }
-
-                    // Refresh ancestors file size to account for our toggle
-                    var ancestor = this.Parent;
-                    while (ancestor != null)
-                    {
-                        ancestor.NotifyOfPropertyChange(FileItemViewModel.MegabytesPropertyName);
-                        ancestor.PointChanged?.Invoke();
-
-                        ancestor.NotifyOfPropertyChange(FileItemViewModel.NameAndSizePropertyName);
-                        ancestor = ancestor.Parent;
-                    }
-
-                    foreach (var child in this.Children)
-                    {
-                        child.IsEnabled = this.IsChecked;
-                        if (this.IsExpanded)
-                        {
-                            if (this.IsChecked)
-                            {
-                                child.ChartVisibility = child.IsEnabled &&
-                                                        child.IsChecked &&
-                                                        child.visibility == Visibility.Visible
-                                                      ? Visibility.Visible
-                                                      : Visibility.Collapsed;
-                            }
-                            else
-                            {
-                                child.ChartVisibility = Visibility.Collapsed;
-                            }
-                        }
-                    }
+                    this.RecalculateChartVisility();
+                    this.RecalculateMegabytes();
                 }
             }
         }
@@ -134,29 +126,7 @@
                 {
                     this.isExpanded = value;
                     this.NotifyOfPropertyChange();
-                    if (this.IsExpanded)
-                    {
-                        this.ChartVisibility = Visibility.Collapsed;
-                        foreach (var child in this.Children)
-                        {
-                            if (this.IsEnabled &&
-                                this.IsChecked &&
-                                child.IsChecked && 
-                                child.Visibility == Visibility.Visible && 
-                                !child.IsExpanded)
-                            {
-                                child.ChartVisibility = Visibility.Visible;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        this.ChartVisibility = this.IsEnabled && this.IsChecked ? Visibility.Visible : Visibility.Collapsed;
-                        foreach (var child in this.Children)
-                        {
-                            child.ChartVisibility = Visibility.Collapsed;
-                        }
-                    }
+                    this.RecalculateChartVisility();
                 }
             }
         }
@@ -176,19 +146,10 @@
                 if (this.visibility != value)
                 {
                     this.visibility = value;
-                    if (value == Visibility.Collapsed)
-                    {
-                        this.ChartVisibility = value;
-                    }
-                    else
-                    {
-                        this.ChartVisibility = this.IsChecked && !this.IsExpanded ? Visibility.Visible : Visibility.Collapsed;
-                    }
 
-                    this.NotifyOfPropertyChange(FileItemViewModel.VisibilityPropertyName);
-                    this.NotifyOfPropertyChange(FileItemViewModel.MegabytesPropertyName);
-                    this.NotifyOfPropertyChange(FileItemViewModel.NameAndSizePropertyName);
+                    this.NotifyOfPropertyChange();
                     this.PointChanged?.Invoke();
+                    this.RecalculateChartVisility();
                 }
             }
         }
@@ -294,6 +255,35 @@
             }
         }
 
+        /// <summary>
+        /// Evaluate every ancestor and returns true if they are all:
+        ///  * Visible
+        ///  * Checked
+        ///  * Expanded
+        /// </summary>
+        private bool AncestorsAreExpandedCheckedAndVisible
+        {
+            get
+            {
+                bool isExpanded = true;
+                var parent = this.Parent;
+                while (parent != null)
+                {
+                    if (!parent.isExpanded ||
+                        !parent.IsChecked ||
+                        parent.Visibility != Visibility.Visible)
+                    {
+                        isExpanded = false;
+                        break;
+                    }
+
+                    parent = parent.Parent;
+                }
+
+                return isExpanded;
+            }
+        }
+
         public bool Equals(FileItemViewModel other)
         {
             return other != null && other.Id.Equals(this.Id);
@@ -308,6 +298,37 @@
         {
             var fileItemViewModel = obj as FileItemViewModel;
             return fileItemViewModel != null && fileItemViewModel.Id.Equals(this.Id);
+        }
+
+        private void RecalculateMegabytes()
+        {
+            // Update my size
+            this.NotifyOfPropertyChange(FileItemViewModel.MegabytesPropertyName);
+            this.NotifyOfPropertyChange(FileItemViewModel.NameAndSizePropertyName);
+            this.PointChanged?.Invoke();
+
+            // Update all my ancestors size
+            if (this.Parent != null)
+            {
+                this.Parent.RecalculateMegabytes();
+            }
+        }
+
+        private void RecalculateChartVisility()
+        {
+            // Update my chart visibility
+            this.ChartVisibility = this.Visibility == Visibility.Visible &&
+                                   this.IsChecked &&
+                                   !this.IsExpanded &&
+                                   this.AncestorsAreExpandedCheckedAndVisible
+                                 ? Visibility.Visible
+                                 : Visibility.Collapsed;
+
+            // Update all my descedents chart visibility
+            foreach (var child in this.Children)
+            {
+                child.RecalculateChartVisility();
+            }
         }
     }
 }
