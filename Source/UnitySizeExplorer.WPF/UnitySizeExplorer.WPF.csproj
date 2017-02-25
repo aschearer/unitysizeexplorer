@@ -157,6 +157,10 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\ThirdParty\StyleCop\4.7\StyleCop.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>xcopy /R /Y "$(SolutionDir)..\License.txt" "$(TargetDir)"
+xcopy /R /Y  "$(SolutionDir)..\ReadMe.md" "$(TargetDir)"</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
