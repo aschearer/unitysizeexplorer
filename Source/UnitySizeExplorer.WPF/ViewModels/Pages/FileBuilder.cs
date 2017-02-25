@@ -2,6 +2,7 @@ namespace SpottedZebra.UnitySizeExplorer.WPF.ViewModels.Pages
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.IO;
     using System.Threading.Tasks;
 
@@ -56,14 +57,14 @@ namespace SpottedZebra.UnitySizeExplorer.WPF.ViewModels.Pages
         /// <remarks>
         ///     Data comes in like: " {size} {unit} {percent}% {path}/{file}"
         /// </remarks>
-        public static bool GetPathAndMegabytesFrom(string line, out Tuple<string, float> data)
+        private static bool GetPathAndMegabytesFrom(string line, out Tuple<string, float> data)
         {
             try
             {
                 line = line.Trim();
                 var size = line.Substring(0, line.IndexOf(' '));
                 var unit = line.Substring(line.IndexOf(' ') + 1, 2);
-                var megabytes = float.Parse(size);
+                var megabytes = float.Parse(size, CultureInfo.InvariantCulture);
                 switch (unit)
                 {
                     case "kb":
