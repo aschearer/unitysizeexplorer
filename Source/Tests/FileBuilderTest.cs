@@ -24,7 +24,8 @@
             var stream = new MemoryStream(buffer);
 
             // act
-            var result = FileBuilder.FromStream(stream);
+            var task = FileBuilder.FromStream(stream);
+            var result = task.Result;
 
             // assert
             result.Should().HaveCount(0);
@@ -38,7 +39,8 @@
             var stream = new MemoryStream(buffer);
 
             // act
-            var result = FileBuilder.FromStream(stream);
+            var task = FileBuilder.FromStream(stream);
+            var result = task.Result;
 
             // assert
             var first = result.First();
@@ -56,7 +58,8 @@
             var stream = new MemoryStream(buffer);
 
             // act
-            var result = FileBuilder.FromStream(stream);
+            var task = FileBuilder.FromStream(stream);
+            var result = task.Result;
 
             // assert
             var first = result.First();
