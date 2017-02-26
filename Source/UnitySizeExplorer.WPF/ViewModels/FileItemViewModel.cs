@@ -175,7 +175,7 @@
             }
         }
 
-        public string Name { get; private set; }
+        public string Name { get; internal set; }
 
         /// <summary>
         /// Returns this node's size. Zero unless a leaf node.

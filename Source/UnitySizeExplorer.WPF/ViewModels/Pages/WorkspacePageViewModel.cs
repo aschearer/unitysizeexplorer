@@ -187,7 +187,43 @@
                 }
             }
 
+            // Go through the entire tree and remove nodes with a single child, collapsing their info
+            // into their parent node.
+            foreach (var root in roots)
+            {
+                WorkspacePageViewModel.PruneTree(root);
+            }
+
             return roots;
+        }
+
+        /// <summary>
+        /// Attempts to collapse parent and child if there is only one child.
+        /// </summary>
+        private static void PruneTree(FileItemViewModel root)
+        {
+            if (root.Children.Count == 1)
+            {
+                var child = root.Children[0];
+
+                // Update root's name to include child's
+                root.Name = root.Name + Path.AltDirectorySeparatorChar + child.Name;
+
+                // Remove child from list of children
+                root.Children.Clear();
+
+                // Assign child's children to root. Re-assign parent to point to root.
+                foreach (var grandchild in child.Children)
+                {
+                    root.Children.Add(grandchild);
+                    grandchild.Parent = root;
+                }
+            }
+
+            foreach (var child in root.Children)
+            {
+                WorkspacePageViewModel.PruneTree(child);
+            }
         }
 
         /// <summary>
