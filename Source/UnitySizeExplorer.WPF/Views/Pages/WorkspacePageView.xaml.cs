@@ -123,5 +123,12 @@
         {
             Application.Current.Shutdown();
         }
+
+        private void OnHideItem(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var fileItem = button.DataContext as FileItemViewModel;
+            fileItem.Visibility = Visibility.Collapsed;
+        }
     }
 }

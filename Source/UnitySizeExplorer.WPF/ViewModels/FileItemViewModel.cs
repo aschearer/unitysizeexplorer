@@ -6,6 +6,7 @@
     using System.ComponentModel;
     using System.Windows;
     using LiveCharts;
+    using System.Windows.Input;
 
     /// <summary>
     /// Represents an item in the tree view as well as a slice in the pie chart.
@@ -253,6 +254,11 @@
                     this.NotifyOfPropertyChange();
                 }
             }
+        }
+
+        public CommandBinding HideCommandBinding
+        {
+            get; private set;
         }
 
         /// <summary>
