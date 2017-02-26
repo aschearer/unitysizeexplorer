@@ -53,6 +53,7 @@
                     Margin="5 0 5 0"
                     Background="Transparent"
                     BorderThickness="0"
+                    Focusable="False"
                     Click="OnHideItem">
                     <TextBlock TextDecorations="Underline">Hide</TextBlock>
                 </Button>
