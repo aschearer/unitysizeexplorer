@@ -5,6 +5,7 @@
     using LiveCharts.Wpf;
     using Microsoft.Win32;
     using SpottedZebra.UnitySizeExplorer.WPF.ViewModels;
+    using System;
     using System.Collections.Specialized;
     using System.Windows;
     using System.Windows.Controls;
@@ -126,9 +127,28 @@
 
         private void OnHideItem(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
+            var button = sender as Control;
             var fileItem = button.DataContext as FileItemViewModel;
             fileItem.Visibility = Visibility.Collapsed;
+        }
+
+        private void OnToggleCheckbox(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Control;
+            var fileItem = button.DataContext as FileItemViewModel;
+            fileItem.IsChecked = !fileItem.IsChecked;
+        }
+
+        private void OnToggleExpanded(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Control;
+            var fileItem = button.DataContext as FileItemViewModel;
+            fileItem.IsExpanded = !fileItem.IsExpanded;
+        }
+
+        private void OnOpenFileExplorer(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
