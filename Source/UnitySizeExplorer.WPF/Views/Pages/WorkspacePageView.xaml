@@ -197,10 +197,10 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,20">
+            <StackPanel Orientation="Vertical" Grid.Row="0" Margin="0,0,0,20">
                 <TextBlock Text="{Binding OriginalSizeText}" />
-                <TextBlock Margin="20,0,0,0" Text="{Binding CurrentSizeText}" />
-                <TextBlock Margin="20,0,0,0" Text="{Binding SavingsSizeText}" />
+                <TextBlock Text="{Binding CurrentSizeText}" />
+                <TextBlock Text="{Binding SavingsSizeText}" />
             </StackPanel>
             <lvc:PieChart 
                 LegendLocation="Bottom" 
