@@ -179,9 +179,10 @@
                 <MenuItem Header="_Exit" Command="ApplicationCommands.Close"/>
             </MenuItem>
             <MenuItem Header="F_ilter">
-                <MenuItem Header="_Big: Less than 1 mb" Command="local:WorkspacePageView.Filter1Action"/>
-                <MenuItem Header="_Medium: Less than 0.5 mb" Command="local:WorkspacePageView.Filter2Action"/>
                 <MenuItem Header="_Small: Less than 0.1 mb" Command="local:WorkspacePageView.Filter3Action"/>
+                <MenuItem Header="_Medium: Less than 0.5 mb" Command="local:WorkspacePageView.Filter2Action"/>
+                <MenuItem Header="_Big: Less than 1 mb" Command="local:WorkspacePageView.Filter1Action"/>
+                <Separator />
                 <MenuItem Header="_Clear Filter" Command="local:WorkspacePageView.ClearFilterAction"/>
             </MenuItem>
         </Menu>
