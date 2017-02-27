@@ -5,11 +5,19 @@
     using System.Windows;
     using System.Windows.Data;
 
-    public class BooleanToVisibilityConvertor : IValueConverter
+    public class BooleanToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var boolValue = (bool)value;
+            if (parameter != null)
+            {
+                if (bool.Parse((string)parameter))
+                {
+                    boolValue = !boolValue;
+                }
+            }
+
             return boolValue ? Visibility.Visible : Visibility.Collapsed;
         }
 

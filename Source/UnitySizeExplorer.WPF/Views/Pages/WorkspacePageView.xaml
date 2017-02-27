@@ -21,18 +21,17 @@
     </UserControl.CommandBindings>
     <!-- Static Resources -->
     <UserControl.Resources>
-        <view:BooleanToVisibilityConvertor x:Key="BooleanToVisibilityConvertor" />
-        <view:InvertedBooleanToVisibilityConvertor x:Key="InvertedBooleanToVisibilityConvertor" />
+        <view:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <HierarchicalDataTemplate 
              x:Key="CheckBoxItemTemplate"
              ItemsSource="{Binding Children, Mode=OneTime}">
             <Grid HorizontalAlignment="Stretch">
                 <Grid.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Check" Visibility="{Binding IsChecked, Converter={StaticResource InvertedBooleanToVisibilityConvertor}}" Click="OnToggleCheckbox"/>
-                        <MenuItem Header="Uncheck" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConvertor}}" Click="OnToggleCheckbox"/>
-                        <MenuItem Header="Expand" Visibility="{Binding IsExpanded, Converter={StaticResource InvertedBooleanToVisibilityConvertor}}" Click="OnToggleExpanded"/>
-                        <MenuItem Header="Collapse" Visibility="{Binding IsExpanded, Converter={StaticResource BooleanToVisibilityConvertor}}" Click="OnToggleExpanded"/>
+                        <MenuItem Header="Check" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=TRUE}" Click="OnToggleCheckbox"/>
+                        <MenuItem Header="Uncheck" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}" Click="OnToggleCheckbox"/>
+                        <MenuItem Header="Expand" Visibility="{Binding IsExpanded, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=TRUE}" Click="OnToggleExpanded"/>
+                        <MenuItem Header="Collapse" Visibility="{Binding IsExpanded, Converter={StaticResource BooleanToVisibilityConverter}}" Click="OnToggleExpanded"/>
                         <MenuItem Header="Hide" Click="OnHideItem"/>
                         <Separator />
                         <MenuItem Header="Open in File Explorer" Click="OnOpenFileExplorer"/>

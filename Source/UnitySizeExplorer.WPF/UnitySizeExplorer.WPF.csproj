@@ -94,8 +94,7 @@
     <Compile Include="ViewModels\FileItemViewModel.cs" />
     <Compile Include="ViewModels\Pages\StartPageViewModel.cs" />
     <Compile Include="ViewModels\BootstrapperViewModel.cs" />
-    <Compile Include="Views\InvertedBooleanToVisibilityConvertor.cs" />
-    <Compile Include="Views\BooleanToVisibilityConvertor.cs" />
+    <Compile Include="Views\BooleanToVisibilityConverter.cs" />
     <Compile Include="Views\Pages\StartPageView.xaml.cs">
       <DependentUpon>StartPageView.xaml</DependentUpon>
     </Compile>
