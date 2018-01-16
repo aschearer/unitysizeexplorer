@@ -37,7 +37,7 @@ Normally, you can view Unity Editor's log after building to see some stats on a 
 
 This is quite helpful. It tells you how big your game is and breaks things down by high level categories. You can even look through the list of assets that follows to find the worst offendors. When first starting to optimize file size this is sufficient as oftentimes the largest files (listed at the top) can be optimized yielding big improvements.
 
-Howvever in the quest to fit under 100 mb I reached a point where the list of files was no longer very useful. That's because there was no longer one or two big files to optimize. Everything non-essential was already quite small, and if I wanted to carve off another 10 or 15 mb I needed to strike at whole folders or class of files. Unity's log file, which lists every file sorted by size, makes it very hard to see the bigger picture.
+However in the quest to fit under 100 mb I reached a point where the list of files was no longer very useful. That's because there was no longer one or two big files to optimize. Everything non-essential was already quite small, and if I wanted to carve off another 10 or 15 mb I needed to strike at whole folders or class of files. Unity's log file, which lists every file sorted by size, makes it very hard to see the bigger picture.
 
 Further aggravating things is the fact that Unity only generates the above after building. In my case building for iOS often took 5 to 10 minutes. This meant that my workflow was drawn out as I made a change, built, then compared the old and new log files. Sometimes the results worked as expected and I could continue. Other times the changes had a smaller impact and were discarded. I needed a way to more quickly and accurately gauge what impact an optimization would have without having to spend 10 minutes per an iteration.
 
@@ -49,7 +49,7 @@ Do you have feature requests, questions or would you like to report a bug? Pleas
 
 Contributing
 ---
-As this projected is maintained by one person, I cannot fix every bug or implement every feature on my own. So contributions are really appreciated!
+As this project is maintained by one person, I cannot fix every bug or implement every feature on my own. So contributions are really appreciated!
 
 A good way to get started:
 
