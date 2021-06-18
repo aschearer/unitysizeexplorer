@@ -15,6 +15,7 @@
     /// </summary>
     internal class WorkspacePageViewModel : Screen
     {
+        private static readonly FileItemViewModelSizeComparer SizeComparer = new FileItemViewModelSizeComparer();
         private readonly IConductor conductor;
 
         /// <summary>
@@ -141,7 +142,7 @@
             }
         }
 
-        private static List<FileItemViewModel> BuildTreeFromFiles(List<Tuple<string, float>> files)
+        private static List<FileItemViewModel> BuildTreeFromFiles(List<FileItemInfo> files)
         {
             // Step 3: Contruct a tree based on files
             var cache = new Dictionary<string, FileItemViewModel>();
@@ -151,13 +152,13 @@
                 var filePath = files[i];
 
                 // Get the path components
-                var filePathParts = filePath.Item1.Split(Path.AltDirectorySeparatorChar);
+                var filePathParts = filePath.Name.Split(Path.AltDirectorySeparatorChar);
 
                 // Create the leaf using the file name
                 var fileItemViewModel = new FileItemViewModel(
-                    filePath.Item1,
+                    filePath.Name,
                     filePathParts[filePathParts.Length - 1],
-                    filePath.Item2);
+                    filePath.Megabytes);
 
                 // Go through each file and add every nodes in the tree for each folder as well as leaves for each file
                 var currentChild = fileItemViewModel;
@@ -191,8 +192,10 @@
             // into their parent node.
             foreach (var root in roots)
             {
-                WorkspacePageViewModel.PruneTree(root);
+                PruneTree(root);
             }
+
+            SortTree(roots);
 
             return roots;
         }
@@ -222,7 +225,19 @@
 
             foreach (var child in root.Children)
             {
-                WorkspacePageViewModel.PruneTree(child);
+                PruneTree(child);
+            }
+        }
+
+        /// <summary>
+        /// Sorts each level of the tree.
+        /// </summary>
+        private static void SortTree(List<FileItemViewModel> fileItems)
+        {
+            fileItems.Sort(SizeComparer);
+            foreach (var item in fileItems)
+            {
+                SortTree(item.Children);
             }
         }
 

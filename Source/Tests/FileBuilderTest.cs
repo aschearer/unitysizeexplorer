@@ -46,8 +46,8 @@
             var first = result.First();
 
             result.Should().HaveCount(2);
-            first.Item1.Should().Be("file1");
-            first.Item2.Should().Be(2.1f);
+            first.Name.Should().Be("file1");
+            first.Megabytes.Should().Be(2.1f);
         }
 
         [TestMethod]
@@ -65,8 +65,8 @@
             var first = result.First();
 
             result.Should().HaveCount(6);
-            first.Item1.Should().Be("file1");
-            first.Item2.Should().Be(2.1f);
+            first.Name.Should().Be("file1");
+            first.Megabytes.Should().Be(2.1f);
         }
     }
 }
