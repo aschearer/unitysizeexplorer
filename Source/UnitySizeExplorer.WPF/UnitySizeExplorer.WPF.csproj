@@ -91,8 +91,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\FileItemInfoNameComparer.cs" />
+    <Compile Include="ViewModels\FileItemInfoSizeComparer.cs" />
+    <Compile Include="ViewModels\FileItemViewModelSizeComparer.cs" />
     <Compile Include="ViewModels\Pages\FileBuilder.cs" />
-    <Compile Include="ViewModels\PathAndSizeComparer.cs" />
+    <Compile Include="ViewModels\FileItemInfo.cs" />
     <Compile Include="ViewModels\Pages\WorkspacePageViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\FileItemViewModel.cs" />

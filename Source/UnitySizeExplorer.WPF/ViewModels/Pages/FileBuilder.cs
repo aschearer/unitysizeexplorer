@@ -8,13 +8,13 @@ namespace SpottedZebra.UnitySizeExplorer.WPF.ViewModels.Pages
 
     public static class FileBuilder
     {
-        public static async Task<List<Tuple<string, float>>> FromStream(Stream stream)
+        public static async Task<List<FileItemInfo>> FromStream(Stream stream)
         {
-            List<Tuple<string, float>> files;
+            List<FileItemInfo> result;
             using (var reader = new StreamReader(stream))
             {
                 // Step 1: Read the raw input data and convert it into a list of <file names, file size> tuples.
-                files = new List<Tuple<string, float>>();
+                result = new List<FileItemInfo>();
                 var startProcessing = false;
                 string line;
                 while (!reader.EndOfStream)
@@ -33,10 +33,9 @@ namespace SpottedZebra.UnitySizeExplorer.WPF.ViewModels.Pages
                         continue;
                     }
 
-                    Tuple<string, float> data;
-                    if (GetPathAndMegabytesFrom(line, out data))
+                    if (GetPathAndMegabytesFrom(line, out FileItemInfo data))
                     {
-                        files.Add(data);
+                        result.Add(data);
                     }
                     else
                     {
@@ -44,11 +43,11 @@ namespace SpottedZebra.UnitySizeExplorer.WPF.ViewModels.Pages
                     }
                 }
 
-                // Step 2: Sort the list of files by file name.
-                files.Sort(new PathAndSizeComparer());
+                // Step 2: Sort the list of files by file size.
+                result.Sort(new FileItemInfoSizeComparer());
             }
 
-            return files;
+            return result;
         }
 
         /// <summary>
@@ -57,7 +56,7 @@ namespace SpottedZebra.UnitySizeExplorer.WPF.ViewModels.Pages
         /// <remarks>
         ///     Data comes in like: " {size} {unit} {percent}% {path}/{file}"
         /// </remarks>
-        private static bool GetPathAndMegabytesFrom(string line, out Tuple<string, float> data)
+        private static bool GetPathAndMegabytesFrom(string line, out FileItemInfo data)
         {
             try
             {
@@ -73,12 +72,12 @@ namespace SpottedZebra.UnitySizeExplorer.WPF.ViewModels.Pages
                 }
 
                 var path = line.Substring(line.IndexOf("% ", StringComparison.Ordinal) + 2);
-                data = new Tuple<string, float>(path, megabytes);
+                data = new FileItemInfo(path, megabytes);
                 return true;
             }
             catch
             {
-                data = new Tuple<string, float>(string.Empty, -1);
+                data = new FileItemInfo(string.Empty, -1);
                 return false;
             }
         }
